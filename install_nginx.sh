@@ -31,3 +31,6 @@ cd nginx-1.8.1
 ./configure --prefix=$nginx_path  --with-pcre=/usr/local/src/pcre-8.37 --with-zlib=/usr/local/src/zlib-1.2.8 
 make
 make install
+mv /usr/local/src/nginx/logrotate.sh $nginx_path/sbin/
+chmod +x $nginx_path/sbin/*
+echo "59 23 * * * root cd /export/servers/nginx/sbin; ./logrotate.sh" >>/etc/crontab
