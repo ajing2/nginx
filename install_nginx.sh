@@ -34,3 +34,10 @@ make install
 mv /usr/local/src/nginx/logrotate.sh $nginx_path/sbin/
 chmod +x $nginx_path/sbin/*
 echo "59 23 * * * root cd /export/servers/nginx/sbin; ./logrotate.sh" >>/etc/crontab
+service crond restart
+cat >>/etc/sudoers <<EOF
+Defaults:admin !requiretty 
+admin ALL=(ALL) NOPASSWD: /export/servers/nginx/sbin/nginx, /sbin/service, /usr/bin/pidstat
+EOF
+chown -R admin:admin /export
+chmod -R 755 /export
